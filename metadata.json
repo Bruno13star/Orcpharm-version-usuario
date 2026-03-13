@@ -1,0 +1,7 @@
+{
+  "name": "OrcPharm Prototype Mobile - Version usuário 1",
+  "description": "A high-fidelity prototype for a pharmaceutical compounding app featuring calculators, pharmacy selection, tracking, and chat support.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
