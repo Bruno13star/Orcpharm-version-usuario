@@ -89,7 +89,7 @@ export default function App() {
       case 'checkout':
         return <CheckoutScreen onBack={() => setCurrentScreen('cart')} onFinish={() => setCurrentScreen('status')} />;
       case 'status':
-        return <OrderStatusScreen onBack={() => setCurrentScreen('home')} />;
+        return <OrderStatusScreen onBack={() => setCurrentScreen('home')} onChatClick={() => setCurrentScreen('chat')} />;
       case 'chat':
         return <ChatScreen onBack={() => setCurrentScreen('home')} />;
       default:

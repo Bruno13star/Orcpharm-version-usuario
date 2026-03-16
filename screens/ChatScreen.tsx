@@ -1,10 +1,65 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 interface Props {
   onBack: () => void;
 }
 
+interface Message {
+  id: string;
+  text: string;
+  sender: 'user' | 'pharmacist';
+  time: string;
+  isImage?: boolean;
+  imageUrl?: string;
+}
+
 export default function ChatScreen({ onBack }: Props) {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: '1',
+      text: 'Olá! Sou a Dra. Luana. Como posso ajudar com seu pedido hoje?',
+      sender: 'pharmacist',
+      time: '09:41'
+    }
+  ]);
+  const [inputValue, setInputValue] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isTyping]);
+
+  const handleSend = () => {
+    if (!inputValue.trim()) return;
+
+    const newMessage: Message = {
+      id: Date.now().toString(),
+      text: inputValue,
+      sender: 'user',
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    setMessages(prev => [...prev, newMessage]);
+    setInputValue('');
+    setIsTyping(true);
+
+    // Simulate pharmacist response
+    setTimeout(() => {
+      setIsTyping(false);
+      setMessages(prev => [...prev, {
+        id: (Date.now() + 1).toString(),
+        text: 'Entendi. Vou verificar o status do seu pedido com o laboratório. Um momento, por favor.',
+        sender: 'pharmacist',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }]);
+    }, 2000);
+  };
+
   return (
     <div className="h-screen bg-background-light dark:bg-slate-950 flex flex-col overflow-hidden transition-colors duration-300">
       {/* Header */}
@@ -42,53 +97,37 @@ export default function ChatScreen({ onBack }: Props) {
             </div>
          </div>
          <div className="text-center">
-            <span className="text-[10px] font-bold text-gray-400 uppercase">Hoje 09:41</span>
+            <span className="text-[10px] font-bold text-gray-400 uppercase">Hoje</span>
          </div>
 
-         {/* Received */}
-         <div className="flex items-end gap-2 max-w-[85%]">
-             <div className="w-6 h-6 rounded-full bg-cover bg-center shrink-0" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop')" }}></div>
-             <div className="flex flex-col gap-1">
-                <span className="text-[10px] font-bold text-text-sec dark:text-gray-400 uppercase ml-1">Dra. Luana</span>
-                <div className="bg-white dark:bg-slate-900 p-3 rounded-2xl rounded-bl-none shadow-sm border border-gray-100 dark:border-slate-800 relative transition-colors">
-                    <p className="text-sm font-medium uppercase text-text-main dark:text-white">Olá! Sou a Dra. Luana. Como posso ajudar com sua fórmula hoje?</p>
-                    <span className="text-[9px] font-bold text-gray-300 dark:text-gray-600 absolute bottom-1 right-2">09:41</span>
-                </div>
-             </div>
-         </div>
-
-         {/* Sent */}
-         <div className="flex items-end gap-2 max-w-[85%] ml-auto justify-end">
-             <div className="flex flex-col gap-1 items-end">
-                <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-br-none shadow-sm border-2 border-primary relative transition-colors">
-                    <p className="text-sm font-medium uppercase text-text-main dark:text-white">Bom dia, estou com dúvida na dosagem desta receita.</p>
-                    <span className="text-[9px] font-bold text-gray-300 dark:text-gray-500 absolute bottom-1 left-2">09:42</span>
-                </div>
-                <div className="flex items-center gap-1 text-[10px] font-bold text-primary uppercase">
-                    Lido <span className="material-symbols-outlined text-sm">done_all</span>
-                </div>
-             </div>
-         </div>
-
-         {/* Sent Image */}
-         <div className="flex items-end gap-2 max-w-[85%] ml-auto justify-end">
-             <div className="flex flex-col gap-1 items-end">
-                <div className="bg-white dark:bg-slate-800 p-1 rounded-2xl rounded-br-none shadow-sm border-2 border-primary overflow-hidden relative transition-colors">
-                    <div className="w-48 h-32 bg-gray-200 rounded-xl bg-cover bg-center relative" style={{ backgroundImage: "url('https://plus.unsplash.com/premium_photo-1661772661721-b16346deb5b0?q=80&w=2070&auto=format&fit=crop')" }}>
-                         <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                            <span className="material-symbols-outlined text-white">visibility</span>
-                         </div>
+         {messages.map((msg) => (
+           msg.sender === 'pharmacist' ? (
+             <div key={msg.id} className="flex items-end gap-2 max-w-[85%]">
+                 <div className="w-6 h-6 rounded-full bg-cover bg-center shrink-0" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop')" }}></div>
+                 <div className="flex flex-col gap-1">
+                    <span className="text-[10px] font-bold text-text-sec dark:text-gray-400 uppercase ml-1">Dra. Luana</span>
+                    <div className="bg-white dark:bg-slate-900 p-3 rounded-2xl rounded-bl-none shadow-sm border border-gray-100 dark:border-slate-800 relative transition-colors">
+                        <p className="text-sm font-medium uppercase text-text-main dark:text-white pr-8">{msg.text}</p>
+                        <span className="text-[9px] font-bold text-gray-300 dark:text-gray-600 absolute bottom-1 right-2">{msg.time}</span>
                     </div>
-                    <p className="text-sm font-medium uppercase text-text-main dark:text-white p-2 pb-4">Segue a foto da receita.</p>
-                    <span className="text-[9px] font-bold text-gray-300 dark:text-gray-500 absolute bottom-1 right-2">09:43</span>
-                </div>
-                <div className="flex items-center gap-1 text-[10px] font-bold text-gray-400 uppercase">
-                    Enviado <span className="material-symbols-outlined text-sm">check</span>
-                </div>
+                 </div>
              </div>
-         </div>
+           ) : (
+             <div key={msg.id} className="flex items-end gap-2 max-w-[85%] ml-auto justify-end">
+                 <div className="flex flex-col gap-1 items-end">
+                    <div className="bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-br-none shadow-sm border-2 border-primary relative transition-colors">
+                        <p className="text-sm font-medium uppercase text-text-main dark:text-white pr-8">{msg.text}</p>
+                        <span className="text-[9px] font-bold text-gray-300 dark:text-gray-500 absolute bottom-1 right-2">{msg.time}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-[10px] font-bold text-primary uppercase">
+                        Enviado <span className="material-symbols-outlined text-sm">check</span>
+                    </div>
+                 </div>
+             </div>
+           )
+         ))}
 
-         {/* Typing */}
+         {isTyping && (
           <div className="flex items-end gap-2">
              <div className="w-6 h-6 rounded-full bg-cover bg-center shrink-0 opacity-70" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop')" }}></div>
              <div className="bg-white dark:bg-slate-900 px-3 py-2 h-9 rounded-2xl rounded-bl-none flex items-center gap-1 transition-colors">
@@ -97,6 +136,8 @@ export default function ChatScreen({ onBack }: Props) {
                 <div className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce delay-150"></div>
              </div>
           </div>
+         )}
+         <div ref={messagesEndRef} />
       </div>
 
       {/* Input */}
@@ -106,10 +147,21 @@ export default function ChatScreen({ onBack }: Props) {
                 <span className="material-symbols-outlined rotate-45">attach_file</span>
              </button>
              <div className="flex-1 bg-gray-100 dark:bg-slate-800 rounded-[1.5rem] flex items-center px-4 py-2 transition-colors">
-                <input type="text" placeholder="DIGITE SUA DÚVIDA..." className="w-full bg-transparent border-none focus:ring-0 text-sm font-medium uppercase placeholder:text-gray-400 dark:placeholder:text-gray-500 text-text-main dark:text-white" />
+                <input 
+                  type="text" 
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                  placeholder="DIGITE SUA DÚVIDA..." 
+                  className="w-full bg-transparent border-none focus:ring-0 text-sm font-medium uppercase placeholder:text-gray-400 dark:placeholder:text-gray-500 text-text-main dark:text-white" 
+                />
                 <span className="material-symbols-outlined text-gray-400 dark:text-gray-500">sentiment_satisfied</span>
              </div>
-             <button className="w-12 h-12 rounded-full bg-primary hover:bg-primary-dark text-white shadow-lg shadow-primary/30 flex items-center justify-center shrink-0">
+             <button 
+               onClick={handleSend}
+               disabled={!inputValue.trim()}
+               className="w-12 h-12 rounded-full bg-primary hover:bg-primary-dark text-white shadow-lg shadow-primary/30 flex items-center justify-center shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+             >
                 <span className="material-symbols-outlined ml-1">send</span>
              </button>
         </div>

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 interface Props {
   onBack: () => void;
+  onChatClick: () => void;
 }
 
-export default function OrderStatusScreen({ onBack }: Props) {
+export default function OrderStatusScreen({ onBack, onChatClick }: Props) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
@@ -86,7 +87,10 @@ export default function OrderStatusScreen({ onBack }: Props) {
             </div>
         </div>
 
-        <button className="w-full mt-6 bg-white dark:bg-slate-900 border border-primary/30 text-primary font-bold rounded-lg py-3 uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors">
+        <button 
+            onClick={onChatClick}
+            className="w-full mt-6 bg-white dark:bg-slate-900 border border-primary text-primary font-bold rounded-lg py-3 uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors"
+        >
             <span className="material-symbols-outlined text-lg">support_agent</span>
             Precisa de Ajuda?
         </button>
