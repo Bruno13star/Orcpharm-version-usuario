@@ -98,7 +98,7 @@ export default function OrderStatusScreen({ onBack, onChatClick }: Props) {
 
       {/* Full Order Details Modal */}
       {showDetails && (
-        <div className="absolute inset-0 z-50 flex flex-col justify-end bg-black/60 backdrop-blur-sm animate-fade-in">
+        <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/60 backdrop-blur-sm animate-fade-in">
              <div 
                 className="bg-white dark:bg-slate-950 w-full rounded-t-3xl h-[90vh] flex flex-col overflow-hidden animate-slide-up shadow-2xl transition-colors"
                 onClick={(e) => e.stopPropagation()}

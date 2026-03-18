@@ -238,7 +238,7 @@ export default function CheckoutScreen({ onBack, onFinish }: Props) {
 
       {/* Thank You Modal */}
       {showThankYouModal && (
-        <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in">
             <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-3xl p-8 shadow-2xl flex flex-col items-center text-center border border-gray-100 dark:border-slate-800 animate-slide-up">
                 <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6">
                     <span className="material-symbols-outlined text-5xl text-green-500">check_circle</span>

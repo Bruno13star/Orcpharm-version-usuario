@@ -13,7 +13,7 @@ export default function PriceEstimateScreen({ onBack, onProceed }: Props) {
       
       {/* Tooltip Modal */}
       {tooltipModal && (
-        <div className="absolute inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={() => setTooltipModal(null)}>
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={() => setTooltipModal(null)}>
             <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setTooltipModal(null)}

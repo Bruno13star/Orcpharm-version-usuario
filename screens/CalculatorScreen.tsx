@@ -436,7 +436,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
   
   // OCR Disclaimer Modal
   const renderOcrDisclaimerModal = () => (
-     <div className="absolute inset-0 z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={(e) => e.stopPropagation()}>
+     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={(e) => e.stopPropagation()}>
         <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative border border-gray-100 dark:border-slate-800">
             <div className="flex flex-col items-center text-center gap-4">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
@@ -474,7 +474,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
 
   // Warning Modal for Controlled Substances
   const renderWarningModal = () => (
-     <div className="absolute inset-0 z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={(e) => e.stopPropagation()}>
+     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={(e) => e.stopPropagation()}>
         <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative border border-yellow-100 dark:border-yellow-900/30">
             <div className="flex flex-col items-center text-center gap-4">
                 <div className="w-16 h-16 bg-yellow-50 dark:bg-yellow-900/20 rounded-full flex items-center justify-center text-yellow-600 dark:text-yellow-500 animate-pulse-slow">
@@ -508,7 +508,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
     const limits = INGREDIENT_LIMITS[newIngName];
 
     return (
-    <div className="absolute inset-0 z-50 flex flex-col justify-end bg-black/20 dark:bg-black/50 backdrop-blur-[2px]" onClick={() => setStep('list')}>
+    <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/20 dark:bg-black/50 backdrop-blur-[2px]" onClick={() => setStep('list')}>
         <div 
             className="w-full h-[85vh] bg-white dark:bg-slate-900 rounded-t-3xl shadow-2xl flex flex-col overflow-hidden animate-slide-up"
             onClick={(e) => e.stopPropagation()} 
@@ -744,7 +744,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
 
   // Render Form Selector Modal
   const renderFormSelector = () => (
-    <div className="absolute inset-0 z-[60] flex flex-col justify-end bg-black/20 dark:bg-black/50 backdrop-blur-[2px]" onClick={() => setFormOpen(false)}>
+    <div className="fixed inset-0 z-[60] flex flex-col justify-end bg-black/20 dark:bg-black/50 backdrop-blur-[2px]" onClick={() => setFormOpen(false)}>
         <div 
             className="w-full h-[85vh] bg-white dark:bg-slate-900 rounded-t-3xl shadow-2xl flex flex-col overflow-hidden animate-slide-up"
             onClick={(e) => e.stopPropagation()} 
@@ -794,7 +794,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
 
   // Render Subtype Selector Modal
   const renderSubtypeSelector = () => (
-    <div className="absolute inset-0 z-[60] flex flex-col justify-end bg-black/20 dark:bg-black/50 backdrop-blur-[2px]" onClick={() => setSubtypeOpen(false)}>
+    <div className="fixed inset-0 z-[60] flex flex-col justify-end bg-black/20 dark:bg-black/50 backdrop-blur-[2px]" onClick={() => setSubtypeOpen(false)}>
         <div 
             className="w-full max-h-[70vh] bg-white dark:bg-slate-900 rounded-t-3xl shadow-2xl flex flex-col overflow-hidden animate-slide-up"
             onClick={(e) => e.stopPropagation()} 
@@ -850,7 +850,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
 
       {/* Tooltip Modal */}
       {tooltipModal && (
-        <div className="absolute inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={() => setTooltipModal(null)}>
+        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/60 backdrop-blur-sm p-6 animate-fade-in" onClick={() => setTooltipModal(null)}>
             <div className="bg-white dark:bg-slate-900 w-full max-w-sm rounded-2xl p-6 shadow-2xl relative" onClick={e => e.stopPropagation()}>
                 <button 
                     onClick={() => setTooltipModal(null)}
