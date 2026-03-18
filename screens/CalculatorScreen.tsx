@@ -1094,14 +1094,26 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
                     <p className="text-xs font-bold text-gray-400 dark:text-gray-500 mt-2 uppercase">Adicione matérias-primas<br/>para calcular</p>
                 </div>
             ) : (
-                <div className="space-y-2">
+                <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
                     {ingredients.map((ing) => (
-                        <div key={ing.id} className="bg-gray-50 dark:bg-slate-900 rounded-xl p-3 border border-gray-100 dark:border-slate-800 grid grid-cols-12 gap-2 relative group transition-colors">
-                            <div className="col-span-4">
+                        <div key={ing.id} className="bg-gray-50 dark:bg-slate-900 rounded-xl p-3 border border-gray-100 dark:border-slate-800 flex gap-2 relative group transition-colors">
+                            <div className="flex-1">
+                                <label className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase mb-1 block">Nome do Ativo</label>
+                                <input 
+                                    type="text" 
+                                    value={ing.name} 
+                                    onChange={(e) => {
+                                        const newIngs = ingredients.map(i => i.id === ing.id ? {...i, name: e.target.value.toUpperCase()} : i);
+                                        setIngredients(newIngs);
+                                    }}
+                                    className="w-full rounded-lg border-none bg-white dark:bg-slate-800 text-xs font-bold px-3 py-2 focus:ring-1 focus:ring-primary uppercase text-text-main dark:text-white" 
+                                />
+                            </div>
+                            <div className="w-[120px]">
                                 <label className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase mb-1 block">
                                     {formType === 2 ? 'Conc./%' : 'Dose'}
                                 </label>
-                                <div className="relative">
+                                <div className="relative flex items-center bg-white dark:bg-slate-800 rounded-lg focus-within:ring-1 focus-within:ring-primary overflow-hidden">
                                     <input 
                                         type="number" 
                                         value={ing.amount} 
@@ -1109,30 +1121,32 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
                                             const newIngs = ingredients.map(i => i.id === ing.id ? {...i, amount: parseFloat(e.target.value)} : i);
                                             setIngredients(newIngs);
                                         }}
-                                        className="w-full rounded-lg border-none bg-white dark:bg-slate-800 text-xs font-bold px-3 py-2 pr-8 focus:ring-1 focus:ring-primary text-text-main dark:text-white" 
+                                        className="w-full min-w-0 rounded-none border-none bg-transparent text-xs font-bold px-2 py-2 focus:ring-0 text-text-main dark:text-white" 
                                     />
-                                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-black text-primary">{ing.unit}</span>
+                                    <div className="relative flex items-center bg-gray-100 dark:bg-slate-700 h-full">
+                                        <select 
+                                            value={ing.unit}
+                                            onChange={(e) => {
+                                                const newIngs = ingredients.map(i => i.id === ing.id ? {...i, unit: e.target.value} : i);
+                                                setIngredients(newIngs);
+                                            }}
+                                            className="appearance-none bg-transparent border-none text-[10px] font-black text-primary focus:ring-0 cursor-pointer pr-5 py-2 pl-2 h-full"
+                                        >
+                                            {UNIT_OPTIONS.map(u => (
+                                                <option key={u.value} value={u.value}>{u.value}</option>
+                                            ))}
+                                        </select>
+                                        <span className="material-symbols-outlined absolute right-1 top-1/2 -translate-y-1/2 text-[12px] text-primary pointer-events-none">expand_more</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col-span-8">
-                                <label className="text-[8px] font-bold text-gray-400 dark:text-gray-500 uppercase mb-1 block">Nome do Ativo</label>
-                                <div className="relative">
-                                    <input 
-                                        type="text" 
-                                        value={ing.name} 
-                                        onChange={(e) => {
-                                            const newIngs = ingredients.map(i => i.id === ing.id ? {...i, name: e.target.value.toUpperCase()} : i);
-                                            setIngredients(newIngs);
-                                        }}
-                                        className="w-full rounded-lg border-none bg-white dark:bg-slate-800 text-xs font-bold px-3 py-2 focus:ring-1 focus:ring-primary uppercase text-text-main dark:text-white" 
-                                    />
-                                    <button 
-                                        onClick={() => handleRemoveIngredient(ing.id)}
-                                        className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-red-500 dark:text-gray-600 dark:hover:text-red-400"
-                                    >
-                                        <span className="material-symbols-outlined text-base">delete</span>
-                                    </button>
-                                </div>
+                            <div className="flex items-end pb-1">
+                                <button 
+                                    onClick={() => handleRemoveIngredient(ing.id)}
+                                    className="text-gray-300 hover:text-red-500 dark:text-gray-600 dark:hover:text-red-400 p-1"
+                                >
+                                    <span className="material-symbols-outlined text-base">delete</span>
+                                </button>
                             </div>
                         </div>
                     ))}
