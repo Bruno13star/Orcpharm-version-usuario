@@ -6,18 +6,12 @@ interface Props {
 }
 
 const SEARCH_SUGGESTIONS = [
-  "MINOXIDIL 5%",
-  "VITAMINA C 500MG",
-  "COLÁGENO HIDROLISADO",
-  "CÁPSULAS DE MAGNÉSIO",
-  "ÔMEGA 3",
-  "CREME ANTI-RUGAS",
-  "GEL REDUTOR",
-  "FLORAL DE BACH",
-  "MELATONINA 3MG",
-  "BIOTINA PARA CABELO",
-  "WHEY PROTEIN ISOLADO",
-  "CREATINA MONOHIDRATADA"
+  "#PO250 - CÁPSULAS DE MAGNÉSIO",
+  "#PO251 - FLORAL DE BACH",
+  "#PO4829 - FÓRMULA PERSONALIZADA",
+  "#ORC1928 - SÉRUM VITAMINA C",
+  "#ORC1929 - MINOXIDIL 5%",
+  "#PO5001 - MELATONINA 3MG"
 ];
 
 export default function HomeScreen({ onNavigate }: Props) {
@@ -72,7 +66,7 @@ export default function HomeScreen({ onNavigate }: Props) {
                 type="text" 
                 value={searchQuery}
                 onChange={handleSearchChange}
-                placeholder="O QUE VAMOS MANIPULAR HOJE?"
+                placeholder="Nº DO PEDIDO OU ORÇAMENTO..."
                 className="w-full h-12 pl-12 pr-4 rounded-xl border border-gray-100 dark:border-slate-800 bg-gray-50 dark:bg-slate-800 text-sm font-bold uppercase placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:ring-primary focus:border-primary text-corporate dark:text-blue-300 transition-colors"
             />
             {searchQuery.length > 0 && (
@@ -124,7 +118,7 @@ export default function HomeScreen({ onNavigate }: Props) {
             </button>
 
             <button 
-                onClick={() => {}} // Placeholder for now, could go to a products screen
+                onClick={() => onNavigate('product_catalog')}
                 className="bg-blue-700 hover:bg-blue-800 text-white rounded-2xl p-4 flex flex-col items-center justify-center gap-3 shadow-lg shadow-blue-700/20 aspect-square transition-transform active:scale-95 relative overflow-hidden group"
             >
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">

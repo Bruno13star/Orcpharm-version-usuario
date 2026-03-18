@@ -12,6 +12,8 @@ import ChatScreen from './screens/ChatScreen';
 import FormulaDetailScreen from './screens/FormulaDetailScreen';
 import VideoTutorialScreen from './screens/VideoTutorialScreen';
 import CartScreen from './screens/CartScreen';
+import ShowcaseFormulaScreen from './screens/ShowcaseFormulaScreen';
+import ProductCatalogScreen, { Product } from './screens/ProductCatalogScreen';
 
 export type ScreenName = 
   | 'menu' 
@@ -24,6 +26,8 @@ export type ScreenName =
   // | 'price_estimate' 
   // | 'pharmacy' 
   | 'formula_detail'
+  | 'product_catalog'
+  | 'showcase_formula'
   | 'cart'
   | 'checkout' 
   | 'status' 
@@ -32,6 +36,7 @@ export type ScreenName =
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenName>('onboarding');
   const [darkMode, setDarkMode] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   // Toggle dark class on the wrapper
   useEffect(() => {
@@ -74,6 +79,29 @@ export default function App() {
          return (
             <FormulaDetailScreen 
                 onBack={() => setCurrentScreen('calculator')} 
+                onAddToCart={() => setCurrentScreen('cart')}
+                onCheckout={() => setCurrentScreen('checkout')}
+            />
+         );
+      case 'product_catalog':
+         return (
+            <ProductCatalogScreen 
+                onBack={() => setCurrentScreen('home')} 
+                onSelectProduct={(product) => {
+                    setSelectedProduct(product);
+                    setCurrentScreen('showcase_formula');
+                }}
+            />
+         );
+      case 'showcase_formula':
+         if (!selectedProduct) {
+             setCurrentScreen('product_catalog');
+             return null;
+         }
+         return (
+            <ShowcaseFormulaScreen 
+                product={selectedProduct}
+                onBack={() => setCurrentScreen('product_catalog')} 
                 onAddToCart={() => setCurrentScreen('cart')}
                 onCheckout={() => setCurrentScreen('checkout')}
             />
