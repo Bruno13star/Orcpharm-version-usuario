@@ -48,7 +48,7 @@ export default function HomeScreen({ onNavigate }: Props) {
                 <div>
                     <p className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase">Entregar em</p>
                     <div className="flex items-center gap-1 cursor-pointer">
-                        <p className="text-sm font-bold text-text-main dark:text-gray-100 uppercase">Casa • Rua das Flores, 123</p>
+                        <p className="text-sm font-bold text-text-main dark:text-gray-100 uppercase">Casa • Rua das Flores, 124</p>
                         <span className="material-symbols-outlined text-primary text-sm">keyboard_arrow_down</span>
                     </div>
                 </div>
