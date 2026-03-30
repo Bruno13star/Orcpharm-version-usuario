@@ -22,7 +22,7 @@ const slides = [
   {
     id: 3,
     title: "DÊ ADEUS ÀS FILAS",
-    desc: "MANIPULE SUAS FÓRMULAS 24H POR DIA, SEM SAIR DO SOFÁ.",
+    desc: "MANIPULE SUAS FÓRMULAS 24H POR DIA.",
     image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
     highlight: "ADEUS"
   }

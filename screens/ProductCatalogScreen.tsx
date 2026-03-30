@@ -30,7 +30,7 @@ export const CATALOG_PRODUCTS: Product[] = [
     name: 'Minoxidil 5% Loção',
     subtitle: 'Crescimento Capilar',
     price: 85.00,
-    image: 'https://images.unsplash.com/photo-1629198725699-0c77401100ce?q=80&w=2080&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?q=80&w=2080&auto=format&fit=crop',
     description: 'Loção capilar clinicamente comprovada para auxiliar no tratamento da queda de cabelo e estimular o crescimento de novos fios.',
     components: [
       { name: 'Minoxidil', amount: '5%' },
@@ -76,7 +76,7 @@ export default function ProductCatalogScreen({ onBack, onSelectProduct }: Props)
          <button onClick={onBack} className="w-10 h-10 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 flex items-center justify-center text-text-main dark:text-white transition-colors">
             <span className="material-symbols-outlined">arrow_back</span>
          </button>
-         <h1 className="flex-1 text-center font-bold text-sm uppercase pr-10 text-text-main dark:text-white">Produtos Prontos</h1>
+         <h1 className="flex-1 text-center font-bold text-sm uppercase pr-10 text-text-main dark:text-white">Fórmulas de Vitrine</h1>
       </header>
 
       <div className="flex-1 overflow-y-auto p-4 pb-24">

@@ -111,6 +111,7 @@ export default function App() {
             <CartScreen 
                 onBack={() => setCurrentScreen('formula_detail')} 
                 onAddMore={() => setCurrentScreen('calculator')}
+                onAddProduct={() => setCurrentScreen('product_catalog')}
                 onCheckout={() => setCurrentScreen('checkout')} 
             />
          );

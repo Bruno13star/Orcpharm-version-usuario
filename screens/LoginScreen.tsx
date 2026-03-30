@@ -23,7 +23,7 @@ export default function LoginScreen({ onLogin, onSignUpClick, onVideoClick }: Pr
                 <span className="material-symbols-outlined text-4xl text-white">local_pharmacy</span>
             </div>
             <h1 className="text-4xl font-bold text-white mb-1">OrcPharm</h1>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">Medicina Manipulada</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/70">Orçamento em Tempo Real</p>
         </div>
       </div>
 

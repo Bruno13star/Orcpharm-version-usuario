@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ScreenName } from '../App';
 
 interface Props {
@@ -37,6 +37,30 @@ export default function HomeScreen({ onNavigate }: Props) {
     setFilteredSuggestions([]);
     // Optional: trigger navigation or search action here
   };
+
+  const carousel1Ref = useRef<HTMLDivElement>(null);
+  const carousel2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollCarousel = (ref: React.RefObject<HTMLDivElement>) => {
+      if (ref.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          ref.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          ref.current.scrollBy({ left: clientWidth * 0.85 + 12, behavior: 'smooth' });
+        }
+      }
+    };
+
+    const intervalId1 = setInterval(() => scrollCarousel(carousel1Ref), 3500);
+    const intervalId2 = setInterval(() => scrollCarousel(carousel2Ref), 4500);
+
+    return () => {
+      clearInterval(intervalId1);
+      clearInterval(intervalId2);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background-light dark:bg-slate-950 pb-24 relative transition-colors duration-300">
@@ -112,7 +136,7 @@ export default function HomeScreen({ onNavigate }: Props) {
                     <span className="material-symbols-outlined text-3xl">upload_file</span>
                 </div>
                 <div className="text-center relative z-10">
-                    <span className="text-sm font-black uppercase leading-tight block">Enviar<br/>Receita</span>
+                    <span className="text-sm font-black uppercase leading-tight block">Cotar<br/>Receita</span>
                     <span className="text-[9px] font-bold opacity-80 uppercase mt-1 block">Cotar Manipulado</span>
                 </div>
             </button>
@@ -128,7 +152,7 @@ export default function HomeScreen({ onNavigate }: Props) {
                     <span className="material-symbols-outlined text-3xl text-white">medication</span>
                 </div>
                 <div className="text-center relative z-10">
-                    <span className="text-sm font-black text-white uppercase leading-tight block">Produto<br/>Pronto</span>
+                    <span className="text-sm font-black text-white uppercase leading-tight block">Fórmulas de<br/>Vitrine</span>
                     <span className="text-[9px] font-bold opacity-80 text-white uppercase mt-1 block">Loja Online</span>
                 </div>
             </button>
@@ -167,7 +191,7 @@ export default function HomeScreen({ onNavigate }: Props) {
         {/* Banner Carousel (Moved to bottom) */}
         <div className="px-4 mb-6">
             <h3 className="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase mb-3 ml-1">Ofertas do Dia</h3>
-            <div className="flex overflow-x-auto gap-3 no-scrollbar snap-x">
+            <div ref={carousel1Ref} className="flex overflow-x-auto gap-3 no-scrollbar snap-x scroll-smooth">
                 <div className="min-w-[85%] snap-center rounded-2xl overflow-hidden relative h-40 bg-background-dark">
                     <img src="https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?q=80&w=2071&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60" />
                     <div className="absolute inset-0 p-5 flex flex-col justify-end items-start bg-gradient-to-r from-corporate to-transparent">
@@ -181,6 +205,42 @@ export default function HomeScreen({ onNavigate }: Props) {
                      <div className="absolute inset-0 p-5 flex flex-col justify-end items-start bg-gradient-to-r from-corporate to-transparent">
                         <span className="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase">Lançamento</span>
                         <h3 className="text-white font-bold text-xl leading-tight uppercase">Linha Skincare<br/>Dermatológica</h3>
+                    </div>
+                </div>
+                <div className="min-w-[85%] snap-center rounded-2xl overflow-hidden relative h-40 bg-background-dark">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=2030&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+                     <div className="absolute inset-0 p-5 flex flex-col justify-end items-start bg-gradient-to-r from-corporate to-transparent">
+                        <span className="bg-primary text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase">Frete Grátis</span>
+                        <h3 className="text-white font-bold text-xl leading-tight uppercase">Manipulados<br/>Uso Contínuo</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* Ofertas da Semana Carousel */}
+        <div className="px-4 mb-6">
+            <h3 className="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase mb-3 ml-1">Ofertas da Semana</h3>
+            <div ref={carousel2Ref} className="flex overflow-x-auto gap-3 no-scrollbar snap-x scroll-smooth">
+                <div className="min-w-[85%] snap-center rounded-2xl overflow-hidden relative h-40 bg-background-dark">
+                    <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=2080&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+                    <div className="absolute inset-0 p-5 flex flex-col justify-end items-start bg-gradient-to-r from-corporate to-transparent">
+                        <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase">Oferta da Semana</span>
+                        <h3 className="text-white font-bold text-xl leading-tight uppercase">Cuidados<br/>Masculinos</h3>
+                        <p className="text-gray-200 text-xs mt-1 uppercase">Kits com 20% OFF</p>
+                    </div>
+                </div>
+                <div className="min-w-[85%] snap-center rounded-2xl overflow-hidden relative h-40 bg-background-dark">
+                    <img src="https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?q=80&w=2074&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+                     <div className="absolute inset-0 p-5 flex flex-col justify-end items-start bg-gradient-to-r from-corporate to-transparent">
+                        <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase">Especial</span>
+                        <h3 className="text-white font-bold text-xl leading-tight uppercase">Emagrecimento<br/>Saudável</h3>
+                    </div>
+                </div>
+                <div className="min-w-[85%] snap-center rounded-2xl overflow-hidden relative h-40 bg-background-dark">
+                    <img src="https://images.unsplash.com/photo-1571781526291-c477eb311dc6?q=80&w=2071&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-60" />
+                     <div className="absolute inset-0 p-5 flex flex-col justify-end items-start bg-gradient-to-r from-corporate to-transparent">
+                        <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded mb-2 uppercase">Novidade</span>
+                        <h3 className="text-white font-bold text-xl leading-tight uppercase">Fórmulas<br/>Infantis</h3>
                     </div>
                 </div>
             </div>

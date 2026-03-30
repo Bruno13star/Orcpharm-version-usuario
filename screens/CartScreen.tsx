@@ -3,6 +3,7 @@ import React from 'react';
 interface Props {
   onBack: () => void;
   onAddMore: () => void;
+  onAddProduct: () => void;
   onCheckout: () => void;
 }
 
@@ -25,7 +26,7 @@ const CART_ITEMS = [
     }
 ];
 
-export default function CartScreen({ onBack, onAddMore, onCheckout }: Props) {
+export default function CartScreen({ onBack, onAddMore, onAddProduct, onCheckout }: Props) {
   
   const total = CART_ITEMS.reduce((acc, item) => acc + item.price, 0);
 
@@ -41,14 +42,25 @@ export default function CartScreen({ onBack, onAddMore, onCheckout }: Props) {
       <div className="flex-1 overflow-y-auto px-4 py-6 pb-48 space-y-6">
         
         {/* Banner Add More */}
-        <div 
-            onClick={onAddMore}
-            className="border-2 border-dashed border-primary/30 bg-primary/5 dark:bg-primary/10 rounded-2xl p-4 flex items-center justify-center gap-3 cursor-pointer hover:bg-primary/10 dark:hover:bg-primary/20 transition-all group"
-        >
-            <div className="w-10 h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-primary shadow-sm group-hover:scale-110 transition-transform">
-                <span className="material-symbols-outlined">add</span>
+        <div className="grid grid-cols-2 gap-3">
+            <div 
+                onClick={onAddMore}
+                className="border-2 border-dashed border-primary/30 bg-primary/5 dark:bg-primary/10 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-primary/10 dark:hover:bg-primary/20 transition-all group text-center"
+            >
+                <div className="w-10 h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-primary shadow-sm group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined">add</span>
+                </div>
+                <span className="text-xs font-bold text-primary uppercase leading-tight">Calcular Nova<br/>Fórmula</span>
             </div>
-            <span className="text-xs font-bold text-primary uppercase">Adicionar Nova Fórmula</span>
+            <div 
+                onClick={onAddProduct}
+                className="border-2 border-dashed border-blue-500/30 bg-blue-50 dark:bg-blue-900/10 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/20 transition-all group text-center"
+            >
+                <div className="w-10 h-10 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-110 transition-transform">
+                    <span className="material-symbols-outlined">shopping_bag</span>
+                </div>
+                <span className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase leading-tight">Fórmulas de<br/>Vitrine</span>
+            </div>
         </div>
 
         {/* Cart Items List */}

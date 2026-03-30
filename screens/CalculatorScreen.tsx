@@ -763,7 +763,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
             
             <div className="flex-1 overflow-y-auto p-4 grid grid-cols-2 gap-3 no-scrollbar">
                 {FORM_OPTIONS.map((option, idx) => (
-                    <button 
+                    <div 
                         key={idx}
                         onClick={() => {
                             setSelectedForm(option.name);
@@ -772,7 +772,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
                             const subtypes = SUBTYPES_MAP[option.name] || DEFAULT_SUBTYPES;
                             setSelectedSubtype(subtypes[0].name);
                         }}
-                        className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all ${selectedForm === option.name ? 'bg-primary/10 border-primary text-primary' : 'bg-gray-50 dark:bg-slate-800 border-transparent hover:border-gray-200 dark:hover:border-slate-700 text-gray-600 dark:text-gray-300'}`}
+                        className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all cursor-pointer ${selectedForm === option.name ? 'bg-primary/10 border-primary text-primary' : 'bg-gray-50 dark:bg-slate-800 border-transparent hover:border-gray-200 dark:hover:border-slate-700 text-gray-600 dark:text-gray-300'}`}
                     >
                         <span className="material-symbols-outlined text-3xl mb-2">{option.icon}</span>
                         <span className="text-xs font-bold uppercase text-center leading-tight">{option.name}</span>
@@ -785,7 +785,7 @@ export default function CalculatorScreen({ onBack, onProceed }: Props) {
                         >
                             <span className="material-symbols-outlined text-sm">info</span>
                         </button>
-                    </button>
+                    </div>
                 ))}
             </div>
         </div>
