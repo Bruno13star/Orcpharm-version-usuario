@@ -246,7 +246,7 @@ export default function CheckoutScreen({ onBack, onFinish }: Props) {
                 <h2 className="text-2xl font-black text-corporate dark:text-white uppercase mb-2">Pedido Finalizado!</h2>
                 <h3 className="text-sm font-bold text-primary uppercase mb-4">Obrigado pela preferência</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
-                    Seu pedido foi recebido com sucesso. Por favor, <strong className="text-text-main dark:text-gray-200">aguarde a comunicação da empresa parceira</strong> para os próximos passos e detalhes da entrega.
+                    Seu pedido foi recebido com sucesso. Por favor, <strong className="text-text-main dark:text-gray-200">aguarde a conferência farmacêutica</strong> para os próximos passos e detalhes da entrega.
                 </p>
                 <button 
                     onClick={onFinish}
